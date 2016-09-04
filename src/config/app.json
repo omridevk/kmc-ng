@@ -17,7 +17,9 @@
         { "routePath" : "content", "titleToken" : "Content", "showSubMenu": true, "children" : [
           { "routePath" : "content/entries", "titleToken" : "Entries" },
           { "routePath" : "content/moderation", "titleToken" : "Moderation" },
-          { "routePath" : "content/playlists", "titleToken" : "Playlists" }
+          { "routePath" : "content/playlists", "titleToken" : "Playlists" },
+          { "routePath" : "content/syndication", "titleToken" : "Syndication" },
+          { "routePath" : "content/categories", "titleToken" : "Categories" }
         ]},
         {"routePath" : "studio", "titleToken" : "Studio"},
         {"routePath" : "analytics", "titleToken" : "Analytics"},

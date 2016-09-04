@@ -30,6 +30,16 @@ const routes: Routes = [
             (require as any).ensure([], require => {
               resolve(require('./kmc-apps/content-playlists-app/content-playlists-app.module').ContentPlaylistsAppModule);
             });
+          }))},
+          { path: 'syndication', loadChildren: load(() => new Promise(resolve => {
+            (require as any).ensure([], require => {
+              resolve(require('./kmc-apps/kmc-flash-app/kmc-flash-app.module').KMCFlashAppModule);
+            });
+          }))},
+          { path: 'categories', loadChildren: load(() => new Promise(resolve => {
+            (require as any).ensure([], require => {
+              resolve(require('./kmc-apps/kmc-flash-app/kmc-flash-app.module').KMCFlashAppModule);
+            });
           }))}
         ]},
         { path: 'dashboard', loadChildren: load(() => new Promise(resolve => {
