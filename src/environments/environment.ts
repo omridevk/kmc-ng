@@ -26,6 +26,7 @@ export const environment = {
         "routePath": "content",
         "titleToken": "Content",
         "showSubMenu": true,
+        "enabled": true,
         "children": [
           {
             "routePath": "content/entries",
@@ -58,7 +59,7 @@ export const environment = {
         "routePath": "studio",
         "titleToken": "Studio",
         "showSubMenu": false,
-        "enabled": false
+        "enabled": true
       },
       {
         "routePath": "analytics",
@@ -104,7 +105,8 @@ export const environment = {
   },
   "modules": {
     "studio_universal": {
-      "apiUrl": "http://www.kaltura.com"
+      "apiUrl": "http://www.kaltura.com",
+      "version": "v2.0.9"
     },
     "contentEntries" : {
       "createdAtDateRange" : "2005:2030"

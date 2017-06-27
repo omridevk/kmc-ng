@@ -3,6 +3,7 @@ import { AuthCanActivate, AppBootstrap } from '@kaltura-ng/kaltura-common';
 
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { StudioComponent } from './components/studio/studio.component';
 import { ErrorComponent } from "./components/error/error.component";
 
 
@@ -20,8 +21,9 @@ const routes: Routes = <Routes>[
         { path: 'content', children: [
           { path: '', redirectTo: 'entries', pathMatch: 'full' },
           { path: 'entries', loadChildren: '../applications/content-entries-app/content-entries-app.module#ContentEntriesAppModule' },
-		  { path: 'playlists', loadChildren: '../applications/content-playlists-app/content-playlists-app.module#ContentPlaylistsAppModule' }
-        ]}
+		      { path: 'playlists', loadChildren: '../applications/content-playlists-app/content-playlists-app.module#ContentPlaylistsAppModule' }
+        ]},
+        { path: 'studio', component: StudioComponent },
       ]
       },
       {

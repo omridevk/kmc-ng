@@ -1,14 +1,10 @@
-<div #main>
-  <div  #appMenu>
-    <div>
-      <kKMCAppMenu></kKMCAppMenu>
-    </div>
+<div #main class="main">
+  <div #appMenu class="header">
+    <kKMCAppMenu></kKMCAppMenu>
   </div>
-    <div>
-      <div>
-          <router-outlet></router-outlet>
-      </div>
-    </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 

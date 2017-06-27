@@ -21,6 +21,7 @@ import { AppDefaultConfig } from "./services/app-default-config.service";
 
 import { AppMenuService } from './services/app-menu.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { StudioComponent } from './components/studio/studio.component';
 import { AppMenuComponent } from './components/app-menu/app-menu.component';
 import { LanguageMenuComponent } from './components/language-menu/language-menu.component';
 import { LoginComponent } from './components/login/login.component';
@@ -71,6 +72,7 @@ export function clientConfigurationFactory()
   declarations: <any>[
       AppComponent,
     DashboardComponent,
+    StudioComponent,
     AppMenuComponent,
     LanguageMenuComponent,
     LoginComponent,
