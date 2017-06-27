@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { AppShellService } from "app-shared/kmc-shell";
+import { AppAuthentication } from '@kaltura-ng/kaltura-common';
 
 @Component({
   selector: 'kStudio',
@@ -8,14 +8,33 @@ import { AppShellService } from "app-shared/kmc-shell";
 })
 export class StudioComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  public studioUrl: string = "";
+
+  constructor(private appAuthentication: AppAuthentication) {
+    window["kmc"] = {
+      "version": "3",
+      "vars": {
+        "ks": this.appAuthentication.appUser.ks,
+        "studio": {
+          "config": '{"version":"v2.0.9", "name":"Video Studio V2", "tags":"studio_v2", "html5_version":"v2.57.2", "html5lib":"http://cdnapi.kaltura.com/html5/html5lib/v2.57.2/mwEmbedLoader.php"}',
+          "showFlashStudio": false,
+          "showHTMLStudio": true,
+          "uiConfID": 39700052,
+          "version": "v2.0.9"
+        }
+      }
+    }
+  }
+
   ngOnInit() {
   }
 
-  ngAfterViewInit()
-  {
+  ngAfterViewInit() {
+    this.studioUrl = "http://kmc.kaltura.com/apps/studio/v2.0.9/index.html";
   }
 
-  ngOnDestroy(){
+
+  ngOnDestroy() {
 
   }
 
