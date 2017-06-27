@@ -1,7 +1,9 @@
 @import "app-theme/_variables.scss";
 
 .kStudio{
-  background-color: cadetblue;
   height: $contentArea;
-  padding: 20px;
+  iframe{
+    width: 100%;
+    height: calc(100vh - 50px);
+  }
 }

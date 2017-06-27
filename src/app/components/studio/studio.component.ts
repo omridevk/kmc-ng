@@ -15,6 +15,7 @@ export class StudioComponent implements OnInit, AfterViewInit, OnDestroy {
       "version": "3",
       "vars": {
         "ks": this.appAuthentication.appUser.ks,
+        "api_url": "http://www.kaltura.com",
         "studio": {
           "config": '{"version":"v2.0.9", "name":"Video Studio V2", "tags":"studio_v2", "html5_version":"v2.57.2", "html5lib":"http://cdnapi.kaltura.com/html5/html5lib/v2.57.2/mwEmbedLoader.php"}',
           "showFlashStudio": false,
@@ -30,7 +31,7 @@ export class StudioComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.studioUrl = "http://kmc.kaltura.com/apps/studio/v2.0.9/index.html";
+    this.studioUrl = "http://localhost/html5.kaltura/player-studio/app/index.html";
   }
 
 
