@@ -10,7 +10,7 @@ import { Ng2Webstorage } from 'ng2-webstorage';
 import { BootstrapAdapterToken, AppBootstrap, AppBootstrapConfig  as AppBootstrapConfigType, KalturaCommonModule, AppStorage } from '@kaltura-ng/kaltura-common';
 import {  KalturaClient, KalturaClientConfiguration } from '@kaltura-ng/kaltura-client';
 import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui/popup-widget';
-
+import { KalturaUIModule } from '@kaltura-ng/kaltura-ui';
 import { BrowserService, KMCShellModule } from 'app-shared/kmc-shell';
 
 import { AppComponent } from './app.component';
@@ -56,7 +56,7 @@ export function clientConfigurationFactory()
     ButtonModule,
     CommonModule,
     ConfirmDialogModule,
-	DropdownModule,
+	  DropdownModule,
     HttpModule,
     InputTextModule,
     MetadataProfileModule,
@@ -67,7 +67,8 @@ export function clientConfigurationFactory()
     PopupWidgetModule,
     routing,
     TieredMenuModule,
-    UploadManagementModule
+    UploadManagementModule,
+    KalturaUIModule
   ],
   declarations: <any>[
       AppComponent,

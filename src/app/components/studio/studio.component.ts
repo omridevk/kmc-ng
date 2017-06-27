@@ -28,10 +28,10 @@ export class StudioComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.studioUrl = "./assets/studio/index.html";
   }
 
   ngAfterViewInit() {
-    this.studioUrl = "http://localhost/html5.kaltura/player-studio/app/index.html";
   }
 
 
