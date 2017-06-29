@@ -1,4 +1,4 @@
-/*! Studio-v2 - v2.0.0 - 2017-06-27
+/*! Studio-v2 - v2.0.0 - 2017-06-29
 * https://github.com/kaltura/player-studio
 * Copyright (c) 2017 Kaltura */
 /*! Copyright (c) 2011 Brandon Aaron (http://brandonaaron.net)

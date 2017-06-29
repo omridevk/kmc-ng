@@ -414,8 +414,9 @@ angular.module('KMCModule').run(['$templateCache', function($templateCache) {
     "\t\t<div style=\"width: 100%; height: 40px\">\r" +
     "\t\t\t<div style=\"height: 30px; position: fixed; padding-top: 5px\">\r" +
     "\t\t\t\t<label style=\"font-weight: normal\" class=\"autoPreview\"><input style=\"margin-right: 5px\" type=\"checkbox\" ng-model=\"autoPreview\" ng-click=\"setAutoPreview()\">Auto Preview</label>\r" +
+    "\t\t\t\t<label style=\"font-weight: normal\" class=\"autoPreview\"><input style=\"margin-right: 5px;margin-left: 5px\" type=\"checkbox\" ng-model=\"simulateMobile\" ng-click=\"setSimulateMobile()\">Simulate Mobile Device</label>\r" +
     "\t\t\t</div>\r" +
-    "\t\t\t<button class=\"btn btn-default\" style=\"margin-left: 120px\" ng-hide=\"autoPreview\" ng-class=\"{'btn-success':checkPlayerRefresh()}\" ng-click=\"refreshPlayer()\"><i class=\"glyphicon glyphicon-refresh\">&nbsp;</i>Preview Changes</button>\r" +
+    "\t\t\t<button class=\"btn btn-default\" style=\"margin-left: 290px\" ng-hide=\"autoPreview\" ng-class=\"{'btn-success':checkPlayerRefresh()}\" ng-click=\"refreshPlayer()\"><i class=\"glyphicon glyphicon-refresh\">&nbsp;</i>Preview Changes</button>\r" +
     "\t\t\t<button class=\"btn btn-primary pull-right spaceLeft\" ng-click=\"save()\">Save Player Settings</button>\r" +
     "\t\t\t<button class=\"btn btn-default pull-right\" ng-click=\"backToList()\">Back to Players List</button>\r" +
     "\t\t</div>\r" +
@@ -546,13 +547,7 @@ angular.module('KMCModule').run(['$templateCache', function($templateCache) {
   $templateCache.put('view/login.html',
     "<div class=\"jumbotron fullheight\">\n" +
     "    <div class=\"container\">\n" +
-    "        <div class=\"\" data-ng-if=\"!shouldAllowLogin\" style=\"text-align: center\">\n" +
-    "            <h2 class=\"text-muted page-header\">\n" +
-    "                Session expired, please re-login to the KMC\n" +
-    "            </h2>\n" +
-    "\n" +
-    "        </div>\n" +
-    "        <div id=\"loginBox\" class=\"\" data-ng-show=\"shouldAllowLogin\">\n" +
+    "        <div id=\"loginBox\" class=\"\">\n" +
     "            <h2 class=\"text-muted page-header\" id=\"pageHeader\">\n" +
     "                Login to v2.0 Studio\n" +
     "            </h2>\n" +

@@ -1,4 +1,4 @@
-/*! Studio-v2 - v2.0.0 - 2017-06-27
+/*! Studio-v2 - v2.0.0 - 2017-06-29
 * https://github.com/kaltura/player-studio
 * Copyright (c) 2017 Kaltura */
 'use strict';
@@ -229,7 +229,7 @@ KMCModule.config([
     setTimeout(function () {
       window.localStorage.setItem('updateHash', 'true');
     }, 1000);
-    if (typeof window.parent.kmc != 'undefined' && window.parent.kmc.version !== '3') {
+    if (typeof window.parent.kmc != 'undefined') {
       $('html').addClass('inKmc');
     }
     var logTime = function (eventName) {
@@ -647,9 +647,18 @@ KMCMenu.controller('EditCtrl', [
     $scope.aspectRatio = playerRatio == 9 / 16 ? 'wide' : playerRatio == 3 / 4 ? 'narrow' : 'custom';
     $scope.newPlayer = !$routeParams.id;
     $scope.menuOpen = true;
+    if (typeof $scope.playerData['autoUpdate'] === 'undefined') {
+      $scope.playerData['autoUpdate'] = $scope.playerData.html5Url.indexOf('{latest}') !== -1;
+    }
     $scope.autoPreview = localStorageService.get('autoPreview') ? localStorageService.get('autoPreview') == 'true' : false;
+    $scope.simulateMobile = false;
     $scope.setAutoPreview = function () {
       localStorageService.set('autoPreview', !$scope.autoPreview);
+    };
+    $scope.setSimulateMobile = function () {
+      setTimeout(function () {
+        $scope.refreshPlayer();
+      }, 0);
     };
     if (window.parent.kmc && window.parent.kmc.vars.studio.showFlashStudio === false) {
       $('.menuFooter').css('bottom', '1px');
@@ -958,6 +967,10 @@ KMCMenu.controller('EditCtrl', [
         kdp.setKDPAttribute(obj, prop, property.initvalue);
         return;
       }
+      if (property.model === 'autoUpdate') {
+        $scope.playerData['autoUpdate'] = property.initvalue;
+        return;
+      }
       $scope.dataChanged = true;
       window.parent.studioDataChanged = true;
       $scope.validate(property);
@@ -1022,6 +1035,9 @@ KMCMenu.controller('EditCtrl', [
       if ($scope.playerData.config.enviornmentConfig && $scope.playerData.config.enviornmentConfig.localizationCode) {
         angular.extend(flashvars, { 'localizationCode': $scope.playerData.config.enviornmentConfig.localizationCode });
       }
+      if ($scope.simulateMobile) {
+        angular.extend(flashvars, { 'EmbedPlayer.SimulateMobile': true });
+      }
       delete $scope.playerData.config.enviornmentConfig;
       angular.extend(flashvars, { 'jsonConfig': angular.toJson($scope.playerData.config) });
       if (window.parent.kmc && window.parent.kmc.vars.ks) {
@@ -1045,7 +1061,7 @@ KMCMenu.controller('EditCtrl', [
         'autoMute',
         'adsOnReplay',
         'enableTooltips',
-        'EmbedPlayer.SimulateMobile'
+        'EmbedPlayer.EnableMobileSkin'
       ];
       $scope.playerData.vars = [];
       var uivar;
@@ -1227,7 +1243,9 @@ KMCMenu.controller('EditCtrl', [
                 'enabled': true
               } : { 'enabled': true };
             }
-            pData = pData[prop];
+            if (pData[prop]) {
+              pData = pData[prop];
+            }
           }
         }
       }
@@ -1385,10 +1403,8 @@ angular.module('KMCModule').controller('LoginCtrl', [
   'localStorageService',
   'requestNotificationChannel',
   '$filter',
-  'utilsSvc',
-  function ($scope, apiService, $location, localStorageService, requestNotificationChannel, $filter, utilsSvc) {
+  function ($scope, apiService, $location, localStorageService, requestNotificationChannel, $filter) {
     requestNotificationChannel.requestEnded('list');
-    $scope.shouldAllowLogin = !utilsSvc.isHostedInKMC3();
     $scope.formError = true;
     $scope.formHelpMsg = $filter('translate')('You must login to use this application');
     $scope.email = '';
@@ -1586,6 +1602,15 @@ angular.module('KMCModule').controller('PlayerListCtrl', [
   function (apiService, loadINI, $location, $rootScope, $scope, $filter, $modal, $timeout, $log, $compile, $window, localStorageService, requestNotificationChannel, PlayerService, $q, utilsSvc) {
     requestNotificationChannel.requestStarted('list');
     $rootScope.lang = 'en-US';
+    var getHTML5Version = function (path) {
+      var version = '';
+      if (path.indexOf('{latest}') !== -1) {
+        version = 'latest';
+      } else {
+        version = path.substring(path.lastIndexOf('/v') + 2, path.indexOf('/mwEmbedLoader.php'));
+      }
+      return version;
+    };
     $scope.search = '';
     $scope.searchSelect2Options = {};
     $scope.currentPage = 1;
@@ -1672,15 +1697,15 @@ angular.module('KMCModule').controller('PlayerListCtrl', [
       $scope.sort.reverse = !$scope.sort.reverse;
     };
     $scope.checkV2Upgrade = function (item) {
-      var html5libVersion = item.html5Url.substring(item.html5Url.indexOf('/v') + 2, item.html5Url.indexOf('/mwEmbedLoader.php'));
-      return !$scope.checkVersionNeedsUpgrade(item) && window.MWEMBED_VERSION !== html5libVersion;
+      var html5libVersion = getHTML5Version(item.html5Url);
+      return !$scope.checkVersionNeedsUpgrade(item) && window.MWEMBED_VERSION !== html5libVersion && html5libVersion !== 'latest';
     };
     $scope.checkVersionNeedsUpgrade = function (item) {
-      var html5libVersion = item.html5Url.substr(item.html5Url.indexOf('/v') + 2, 1);
+      var html5libVersion = getHTML5Version(item.html5Url)[0];
       return html5libVersion == '1';
     };
     $scope.checkOldPlaylistPlayer = function (item) {
-      var html5libVersion = item.html5Url.substr(item.html5Url.indexOf('/v') + 2, 1);
+      var html5libVersion = getHTML5Version(item.html5Url)[0];
       return html5libVersion == '1' && item.tags.indexOf('playlist') !== -1;
     };
     $scope.showSubTitle = true;
@@ -1818,7 +1843,7 @@ angular.module('KMCModule').controller('PlayerListCtrl', [
     };
     $scope.upgrade = function (player) {
       var upgradeProccess = $q.defer();
-      var html5libVersion = player.html5Url.substring(player.html5Url.indexOf('/v') + 2, player.html5Url.indexOf('/mwEmbedLoader.php'));
+      var html5libVersion = getHTML5Version(player.html5Url);
       var currentVersion = window.MWEMBED_VERSION;
       var msg = 'This will update the player "' + player.name + '" (ID: ' + player.id + ').';
       msg += '<br>Current player version: ' + html5libVersion;
@@ -1826,7 +1851,7 @@ angular.module('KMCModule').controller('PlayerListCtrl', [
       var modal = utilsSvc.confirm('Updating confirmation', msg, 'Update');
       modal.result.then(function (result) {
         if (result) {
-          var html5lib = player.html5Url.substr(0, player.html5Url.indexOf('/v') + 2) + window.MWEMBED_VERSION + '/mwEmbedLoader.php';
+          var html5lib = player.html5Url.substr(0, player.html5Url.lastIndexOf('/v') + 2) + window.MWEMBED_VERSION + '/mwEmbedLoader.php';
           PlayerService.playerUpgrade(player, html5lib).then(function (data) {
             player.html5Url = html5lib;
             upgradeProccess.resolve('update finished successfully');
@@ -1853,7 +1878,7 @@ angular.module('KMCModule').controller('PlayerListCtrl', [
       if (isPlaylist) {
         text += '<br><span><b>Note:</b> Playlist configuration will not be updated.<br>Please re-configure your playlist plugin after this upgrade.</span>';
       }
-      var html5lib = player.html5Url.substr(0, player.html5Url.indexOf('/v') + 2) + window.MWEMBED_VERSION + '/mwEmbedLoader.php';
+      var html5lib = player.html5Url.substr(0, player.html5Url.lastIndexOf('/v') + 2) + window.MWEMBED_VERSION + '/mwEmbedLoader.php';
       var modal = utilsSvc.confirm('Upgrade confirmation', text, 'Upgrade');
       modal.result.then(function (result) {
         if (result)
@@ -2068,9 +2093,6 @@ KMCServices.factory('utilsSvc', [
   '$modal',
   function ($modal) {
     var utilsSvc = {
-        isHostedInKMC3: function () {
-          return window && window.parent && window.parent.kmc && window.parent.kmc.version === '3';
-        },
         'str2val': function (str) {
           if (typeof str !== 'string')
             return str;
@@ -2349,6 +2371,7 @@ KMCServices.factory('PlayerService', [
             apiService.setCache(false);
             apiService.doRequest(request).then(function (data) {
               var playerData = $.isArray(data) ? data[1] : data;
+              playerData['autoUpdate'] = true;
               playersService.setCurrentPlayer(playerData);
               apiService.setCache(true);
               localStorageService.set('tempPlayerID', playerData.id);
@@ -2515,7 +2538,11 @@ KMCServices.factory('PlayerService', [
               'uiConf:config': JSON.stringify(data2Save, null, '\t')
             };
           if (data.html5Url.indexOf('/html5/html5lib/') === 0) {
-            request['uiConf:html5Url'] = '/html5/html5lib/v' + window.MWEMBED_VERSION + '/mwEmbedLoader.php';
+            if (data.autoUpdate) {
+              request['uiConf:html5Url'] = '/html5/html5lib/{latest}/mwEmbedLoader.php';
+            } else {
+              request['uiConf:html5Url'] = '/html5/html5lib/v' + window.MWEMBED_VERSION + '/mwEmbedLoader.php';
+            }
           }
           apiService.doRequest(request).then(function (result) {
             playersCache[data.id] = data;
