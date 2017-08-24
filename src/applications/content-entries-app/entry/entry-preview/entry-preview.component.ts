@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { EntryStore } from '../entry-store.service';
 import { KalturaMediaEntry } from 'kaltura-typescript-client/types/KalturaMediaEntry';
 import { KalturaEntryStatus } from 'kaltura-typescript-client/types/KalturaEntryStatus';
@@ -7,13 +7,16 @@ import { KalturaMediaType } from 'kaltura-typescript-client/types/KalturaMediaTy
 import { BrowserService } from 'app-shared/kmc-shell';
 import { EntryPreviewHandler } from './entry-preview-handler';
 import { EntryFormManager } from '../entry-form-manager';
+import { KalturaPlayerComponent } from '@kaltura-ng/kaltura-ui';
 
 @Component({
 	selector: 'kEntryPreview',
 	templateUrl: './entry-preview.component.html',
 	styleUrls: ['./entry-preview.component.scss']
 })
-export class EntryPreview implements OnInit, OnDestroy {
+export class EntryPreview implements OnInit, AfterViewInit, OnDestroy {
+
+	@ViewChild('player') private player: KalturaPlayerComponent;
 
 	public _entryHasContent: boolean = false;
 	public _entryReady: boolean = false;
@@ -30,10 +33,7 @@ export class EntryPreview implements OnInit, OnDestroy {
 	public _handler : EntryPreviewHandler;
 
 
-	constructor(private _entryFormManager : EntryFormManager,
-				private browserService: BrowserService,
-
-				public _entryStore: EntryStore) {
+	constructor(private _entryFormManager : EntryFormManager, private browserService: BrowserService, public _entryStore: EntryStore) {
 	}
 
 	ngOnInit() {
@@ -56,6 +56,14 @@ export class EntryPreview implements OnInit, OnDestroy {
 				}
 			}
 		);
+	}
+
+	onPlayerReady(kdp){
+		this._handler.kdp = kdp;
+	}
+
+	ngAfterViewInit() {
+		this._handler.player = this.player;
 	}
 
 	openPreviewAndEmbed() {

@@ -1,5 +1,5 @@
 <div class="kEntryPreview kOverrideFAIcons">
-	<iframe *ngIf="_handler.iframeSrc" [src]="_handler.iframeSrc | safe" width="280" height="158" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>
+	<k-player #player [lazy]="true" [pid]="_handler._playConfig?.pid" [uiconfid]="_handler._playConfig?.uiconfid" [entryid]="_handler._playConfig?.entryid" [width]="280" [height]="158" (kalturaPlayerReady)="onPlayerReady($event)"></k-player>
 	<div class="kPreviewAndEmbedContainer" *ngIf="_entryHasContent">
 		<i (click)="openPreviewAndEmbed()" [class.disabled]="!_entryReady" class="kIconshare"></i><a [class.disabled]="!_entryReady" (click)="openPreviewAndEmbed()">{{'applications.content.entryDetails.preview.pande' | translate}}</a>
 	</div>
