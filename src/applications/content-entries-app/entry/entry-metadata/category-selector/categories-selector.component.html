@@ -4,7 +4,7 @@
 	</div>
 
 	<div class="kTagsContainer">
-		<span *ngIf="!_selectedCategories.length">{{'applications.content.entryDetails.metadata.catSelect' | translate}}</span>
+		<!--span *ngIf="!_selectedCategories.length">{{'applications.content.entryDetails.metadata.catSelect' | translate}}</span>
 		<kTags *ngIf="_selectedCategories?.length" [data]="_selectedCategories" [labelField]="'name'" [tooltipField]="'fullNamePath'" (onTagRemove)="_removeTag($event)" (onRemoveAll)="_removeAllTag()">
 			<ng-template let-item="item">
 				<div class="kTagContent" [kTooltip]="item.tooltip | kCategoryTooltip">
@@ -12,9 +12,13 @@
 					<i *ngIf="item.showRemove" class="kTagRemove kIconclose_small" (click)="_removeTag(item.data)"></i>
 				</div>
 			</ng-template>
-		</kTags>
+		</kTags-->
+		<p-radioButton name="groupname" value="1" [(ngModel)]="noParent" label="No Parent" (onClick)="noParentSelected()"></p-radioButton>
 	</div>
+
+
 	<div class="kMain">
+
 		<kAutoComplete #autoComplete
 					   [disabled]="!_categoriesLoaded"
 					   [multiple]="false"
@@ -28,7 +32,6 @@
 					   [suggestionsProvider]="_categoriesProvider"
 					   (completeMethod)="_onAutoCompleteSearch($event)">
 		</kAutoComplete>
-
 
 		<k-categories-tree #categoriesTree
 						   [(selection)]="_treeSelection"

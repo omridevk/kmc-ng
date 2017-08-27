@@ -65,7 +65,15 @@
 	border-bottom: 0px solid white;
 	min-height: 260px;
 }
-
+:host /deep/ .ui-tree .ui-chkbox .ui-chkbox-icon{
+	border-radius: 10px;
+	width: 18px;
+	height: 18px;
+	&.ui-chkbox-icon.fa.fa-check:before{
+		font-size: 10px;
+		line-height: 16px;
+	}
+}
 
 :host /deep/ k-area-blocker{
 	height: 265px;

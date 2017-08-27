@@ -34,6 +34,8 @@ export class CategoriesSelector implements OnInit, OnDestroy, AfterViewChecked {
 
 	public _selectedCategories: EntryCategoryItem[]  = [];
 
+	public noParent = 1;
+
 	private parentPopupStateChangeSubscription : ISubscription;
 	@Input() parentPopupWidget: PopupWidgetComponent;
 
@@ -194,6 +196,8 @@ export class CategoriesSelector implements OnInit, OnDestroy, AfterViewChecked {
 			const selectedCategoryIndex = this._selectedCategories.findIndex(item => item.id + '' === selectedItem.id + '');
 
 			if (selectedCategoryIndex === -1) {
+				this._selectedCategories = [];
+				this.noParent = 0;
 				this._selectedCategories.push({
 					id: selectedItem.id,
 					fullIdPath: selectedItem.fullIdPath,
@@ -227,8 +231,11 @@ export class CategoriesSelector implements OnInit, OnDestroy, AfterViewChecked {
 		if (node instanceof PrimeTreeNode) {
 			const autoCompleteItemIndex = this._selectedCategories.findIndex(item => item.id + '' === node.data + '');
 
+			this._treeSelection = [node];
+			this.noParent = 0;
 
 			if (autoCompleteItemIndex === -1) {
+				this._selectedCategories = [];
 				this._selectedCategories.push({
 					id: node.origin.id,
 					fullIdPath: node.origin.fullIdPath,
@@ -237,5 +244,11 @@ export class CategoriesSelector implements OnInit, OnDestroy, AfterViewChecked {
 				});
 			}
 		}
+	}
+
+	public noParentSelected(){
+		this.noParent = 1;
+		this._treeSelection = [];
+		this._selectedCategories = [];
 	}
 }
