@@ -56,7 +56,9 @@ export class CategoryService implements OnDestroy {
 	public category$ = this._category.asObservable();
 
 	public get categoryId(): number {
-		return this._category.getValue().id;
+		if (this._category.getValue()) {
+			return this._category.getValue().id;
+		}
 	}
 	public get category(): KalturaCategory {
 		return this._category.getValue();
