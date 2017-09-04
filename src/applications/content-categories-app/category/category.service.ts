@@ -54,10 +54,9 @@ export class CategoryService implements OnDestroy {
 	private _reloadCategoriesOnLeave = false;
 	private _category: BehaviorSubject<KalturaCategory> = new BehaviorSubject<KalturaCategory>(null);
 	public category$ = this._category.asObservable();
-	private _categoryId: number;
 
 	public get categoryId(): number {
-		return this._categoryId;
+		return this._category.getValue().id;
 	}
 	public get category(): KalturaCategory {
 		return this._category.getValue();
@@ -236,7 +235,6 @@ export class CategoryService implements OnDestroy {
 			this._loadCategorySubscription = null;
 		}
 
-		this._categoryId = categoryId;
 		this._categoryIsDirty = false;
 		this._updatePageExitVerification();
 
@@ -249,8 +247,6 @@ export class CategoryService implements OnDestroy {
 			response => {
 
 				this._category.next(response);
-				this._categoryId = response.id;
-
 				const dataLoadedResult = this._sectionsManager.onDataLoaded(response);
 
 				if (dataLoadedResult.errors.length) {
