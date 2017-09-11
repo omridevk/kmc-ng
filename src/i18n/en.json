@@ -121,6 +121,15 @@
           "video": "Video entry",
           "audio": "Audio entry"
         }
+      },
+      "transcodingProfilesSelect":{
+        "title":"Prepare Video Entry",
+        "selectTranscodingProfile":"Select transcoding profile",
+        "defaultOption":"Default",
+        "apply":"Apply",
+        "errors": {
+          "loadFailed": "An error occurred during transcoding profiles loading"
+        }
       }
     }
   },
