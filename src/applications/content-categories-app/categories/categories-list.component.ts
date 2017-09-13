@@ -88,7 +88,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     _onActionSelected(event: { action: string, categoryID: number }) {
         switch (event.action) {
             case "edit":
-                this.router.navigate(['/content/categories/category', event.categoryID]);
+                // this.router.navigate(['/content/categories/category', event.categoryID]);
                 break;
             default:
                 break;
