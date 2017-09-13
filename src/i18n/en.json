@@ -120,10 +120,17 @@
           "title": "Prepare entry",
           "video": "Video entry",
           "audio": "Audio entry"
+        },
+        "createDraft": {
+          "draftEntry": "Draft Entry"
+        },
+        "errors":{
+          "prepareEntry": "An error occurred during prepare entry"
         }
       },
       "transcodingProfilesSelect":{
-        "title":"Prepare Video Entry",
+        "titleVideo":"Prepare Video Entry",
+        "titleAudio":"Prepare Audio Entry",
         "selectTranscodingProfile":"Select transcoding profile",
         "defaultOption":"Default",
         "apply":"Apply",

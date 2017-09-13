@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {KalturaConversionProfile} from 'kaltura-typescript-client/types/KalturaConversionProfile';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppLocalization} from '@kaltura-ng/kaltura-common';
-import {AreaBlockerMessage} from "@kaltura-ng/kaltura-ui";
-import {TranscodingProfilesService} from "./transcoding-profiles.service";
-import {BrowserService} from "app-shared/kmc-shell";
+import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
+import {TranscodingProfilesService} from './transcoding-profiles.service';
+import {BrowserService} from 'app-shared/kmc-shell';
+import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui/popup-widget/popup-widget.component';
+import {KalturaMediaType} from 'kaltura-typescript-client/types/KalturaMediaType';
 
 @Component({
   selector: 'kTranscodingProfileSelect',
@@ -13,11 +14,15 @@ import {BrowserService} from "app-shared/kmc-shell";
   providers: [TranscodingProfilesService]
 })
 export class TranscodingProfileSelectComponent implements OnInit {
-  @Output() onTranscodingProfileSelected = new EventEmitter<{ profileId: number }>()
+  @Output() onTranscodingProfileSelected = new EventEmitter<{ profileId: number }>();
+  @Input() parentPopupWidget: PopupWidgetComponent;
+  @Input() mediaType: KalturaMediaType.video | KalturaMediaType.audio;
+  public _title: string;
   public transcodingProfileSelectForm: FormGroup;
   public _profiles: { label: string, value: number }[] = [];
   public _blockerMessage: AreaBlockerMessage = null;
   public _isBusy = false;
+
 
   constructor(private _appLocalization: AppLocalization,
               private _fb: FormBuilder,
@@ -26,6 +31,9 @@ export class TranscodingProfileSelectComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._title = this.mediaType === KalturaMediaType.video ?
+      this._appLocalization.get('app.upload.transcodingProfilesSelect.titleVideo') :
+      this._appLocalization.get('app.upload.transcodingProfilesSelect.titleAudio');
     this._updateAreaBlockerState(true, null);
     this._createForm();
     this._loadTranscodingProfiles();
@@ -81,7 +89,6 @@ export class TranscodingProfileSelectComponent implements OnInit {
     const selectedProfile = this.transcodingProfileSelectForm.get('profile').value;
     this._browserService.setInLocalStorage('transcodingProfiles.selectedProfile', selectedProfile);
     this.onTranscodingProfileSelected.emit({profileId: selectedProfile});
+    this.parentPopupWidget.close()
   }
-
-
 }

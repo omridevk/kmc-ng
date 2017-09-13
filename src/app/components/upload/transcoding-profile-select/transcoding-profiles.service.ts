@@ -6,6 +6,7 @@ import {ConversionProfileListAction} from "kaltura-typescript-client/types/Conve
 import {KalturaConversionProfileFilter} from "kaltura-typescript-client/types/KalturaConversionProfileFilter";
 import {KalturaConversionProfileType} from "kaltura-typescript-client/types/KalturaConversionProfileType";
 import {KalturaFilterPager} from "kaltura-typescript-client/types/KalturaFilterPager";
+import {KalturaNullableBoolean} from "kaltura-typescript-client/types/KalturaNullableBoolean";
 
 
 export interface TranscodingProfile {
@@ -26,6 +27,16 @@ export class TranscodingProfilesService {
       pager: new KalturaFilterPager({pageSize: 500})
     }))
       .map(result => (result.objects))
+      .map(profiles => {
+        const defaultProfileIndex = profiles.findIndex(x => (x.isDefault === KalturaNullableBoolean.trueValue));
+        // Set default profile as first in array (if not already first)
+        if (defaultProfileIndex > 0) {
+          const defaultProfile = profiles[defaultProfileIndex];
+          profiles.splice(defaultProfileIndex, 1);
+          profiles.unshift(defaultProfile);
+        }
+        return profiles;
+      })
       .monitor('Transcoding profiles');
   }
 }
