@@ -89,6 +89,6 @@ export class TranscodingProfileSelectComponent implements OnInit {
     const selectedProfile = this.transcodingProfileSelectForm.get('profile').value;
     this._browserService.setInLocalStorage('transcodingProfiles.selectedProfile', selectedProfile);
     this.onTranscodingProfileSelected.emit({profileId: selectedProfile});
-    this.parentPopupWidget.close()
+    this.parentPopupWidget.close();
   }
 }
