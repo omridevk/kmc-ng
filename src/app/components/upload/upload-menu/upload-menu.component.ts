@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {environment} from 'app-environment';
 import {BrowserService} from 'app-shared/kmc-shell';
 import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui/popup-widget/popup-widget.component';
@@ -19,6 +19,7 @@ export class UploadMenuComponent {
 
   private _entryMediaType = KalturaMediaType;
   private _selectedMediaType: KalturaMediaType;
+  @Output() onSubmenuOpened = new EventEmitter();
 
   constructor(private _browserService: BrowserService,
               private _uploadMenuService: UploadMenuService,
@@ -39,6 +40,7 @@ export class UploadMenuComponent {
     this._selectedMediaType = mediaType;
     if (true) {
       this.transcodingProfileSelectMenu.open();
+      this.onSubmenuOpened.emit();
     } else {
     // this._loadEntry({profileId: -1});
     }
