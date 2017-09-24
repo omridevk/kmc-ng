@@ -54,8 +54,15 @@ export class UserSettingsComponent {
 	}
 
 	onLangSelected(event){
-		this.browserService.setInLocalStorage('kmc_lang', event.value);
-		location.reload();
+		// for demo only
+		this.browserService.alert(
+			{
+				header: "Note",
+				message: "Localization files are not ready yet..."
+			}
+		);
+		// this.browserService.setInLocalStorage('kmc_lang', event.value);
+		// location.reload();
 	}
 
 }
