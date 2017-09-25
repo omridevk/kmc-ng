@@ -1,10 +1,12 @@
-<select [(ngModel)]="_selectedStreamType">
-  <option *ngFor="let type of ['a','b']" [ngValue]="type">{{type}}</option>
-</select>
+
+<p-dropdown [options]="_availableStreamTypes" [(ngModel)]="_selectedStreamType"></p-dropdown>
+<!--<select [(ngModel)]="_selectedStreamType">-->
+  <!--<option *ngFor="let type of _availableStreamTypes" [ngValue]="type.id">{{type.name | translate}}</option>-->
+<!--</select>-->
 <div [ngSwitch]="_selectedStreamType">
-  <kManualLive #manualLiveComponent *ngSwitchCase="'a'" [(data)]="manualLiveData"></kManualLive>
-  <kKalturaLiveStream #kalturaLiveStreamComponent *ngSwitchCase="'b'" [(data)]="kalturaLiveStreamData"></kKalturaLiveStream>
-  <!--<kUniversalLive></kUniversalLive>-->
+  <kKalturaLiveStream #kalturaLiveStreamComponent *ngSwitchCase="_streamTypes.kaltura" [(data)]="kalturaLiveStreamData"></kKalturaLiveStream>
+  <kManualLive #manualLiveComponent *ngSwitchCase="_streamTypes.manual" [(data)]="manualLiveData"></kManualLive>
+  <kUniversalLive #universalLiveComponent *ngSwitchCase="_streamTypes.universal"></kUniversalLive>
   {{kalturaLiveStreamData | json}}
   {{manualLiveData | json}}
 </div>

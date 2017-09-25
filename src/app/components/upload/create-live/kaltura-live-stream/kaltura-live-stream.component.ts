@@ -40,12 +40,6 @@ export class KalturaLiveStreamComponent implements OnInit {
     })
   }
 
-  onSubmit(): void {
-    // if (this._form.valid) {
-    //   this.dataChange.emit(this._form.value)
-    // }
-  }
-
   public validate() {
     return this._form.valid;
   }

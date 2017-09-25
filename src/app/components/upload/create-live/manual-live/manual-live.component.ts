@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {KalturaLiveStream} from "../create-live.service";
+import {KalturaLiveStream, ManualLive} from "../create-live.service";
 import {AppLocalization} from "@kaltura-ng/kaltura-common";
 
 @Component({
@@ -13,7 +13,7 @@ export class ManualLiveComponent implements OnInit {
   public _form: FormGroup;
 
   @Input()
-  data: KalturaLiveStream;
+  data: ManualLive;
 
   @Output()
   dataChange = new EventEmitter<KalturaLiveStream>();

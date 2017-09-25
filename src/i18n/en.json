@@ -137,6 +137,13 @@
         "errors": {
           "loadFailed": "An error occurred during transcoding profiles loading"
         }
+      },
+      "prepareLive": {
+        "streamTypes" :{
+          "kaltura": "Kaltura Live Streaming (HDS/HLS/DASH)",
+          "universal": "Universal Streaming, Flash and Mobile (HDS/HLS)",
+          "manual": "Manual Live Stream URLs"
+        }
       }
     }
   },
