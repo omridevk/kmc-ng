@@ -63,6 +63,10 @@ import { LoginFormComponent } from './components/login/login-form/login-form.com
 import { PasswordExpiredFormComponent } from './components/login/password-expired-form/password-expired-form.component';
 import { InvalidLoginHashFormComponent } from './components/login/invalid-login-hash-form/invalid-login-hash-form.component';
 import {TranscodingProfileSelectComponent} from './components/upload/transcoding-profile-select/transcoding-profile-select.component';
+import {CreateLiveComponent} from "./components/upload/create-live/create-live.component";
+import {UniversalLiveComponent} from "./components/upload/create-live/universal-live/universal-live.component";
+import {ManualLiveComponent} from "./components/upload/create-live/manual-live/manual-live.component";
+import {KalturaLiveStreamComponent} from "./components/upload/create-live/kaltura-live-stream/kaltura-live-stream.component";
 
 const partnerProviders: PartnerProfileStore[] = [AccessControlProfileStore, FlavoursStore];
 
@@ -115,7 +119,11 @@ export function clientConfigurationFactory() {
     ForgotPasswordFormComponent,
     InvalidLoginHashFormComponent,
     UploadMenuComponent,
-    TranscodingProfileSelectComponent
+    TranscodingProfileSelectComponent,
+    CreateLiveComponent,
+    KalturaLiveStreamComponent,
+    UniversalLiveComponent,
+    ManualLiveComponent
   ],
   bootstrap: <any>[
     AppComponent

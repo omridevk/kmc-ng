@@ -1,0 +1,12 @@
+<select [(ngModel)]="_selectedStreamType">
+  <option *ngFor="let type of ['a','b']" [ngValue]="type">{{type}}</option>
+</select>
+<div [ngSwitch]="_selectedStreamType">
+  <kManualLive #manualLiveComponent *ngSwitchCase="'a'" [(data)]="manualLiveData"></kManualLive>
+  <kKalturaLiveStream #kalturaLiveStreamComponent *ngSwitchCase="'b'" [(data)]="kalturaLiveStreamData"></kKalturaLiveStream>
+  <!--<kUniversalLive></kUniversalLive>-->
+  {{kalturaLiveStreamData | json}}
+  {{manualLiveData | json}}
+</div>
+
+<button (click)="checkValidityOfCurrentSelectedForm()"></button>

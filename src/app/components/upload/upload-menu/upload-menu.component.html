@@ -19,7 +19,7 @@
   <div class="kUploadMenuListItem last">
     <i class="kIconlive kUploadMenuLiveStreamIcon"></i>
     <span>
-      <a>{{ 'app.upload.uploadMenu.liveStream' | translate }}</a>
+      <a (click)="createLive.open()">{{ 'app.upload.uploadMenu.liveStream' | translate }}</a>
     </span>
   </div>
 
@@ -36,3 +36,10 @@
     <kTranscodingProfileSelect (onTranscodingProfileSelected)="_loadEntry($event)" [parentPopupWidget]="transcodingProfileSelectMenu" [mediaType]="_selectedMediaType"></kTranscodingProfileSelect>
   </ng-template>
 </kPopupWidget>
+
+<kPopupWidget #createLive [popupWidth]="586" [popupHeight]="289" [closeBtn]="true" [modal]="true">
+  <ng-template>
+    <kCreateLive></kCreateLive>
+  </ng-template>
+</kPopupWidget>
+
