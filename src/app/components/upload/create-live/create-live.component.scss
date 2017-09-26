@@ -1,0 +1,79 @@
+@import 'app-theme/_variables.scss';
+
+.kEditWin {
+  .kHeader {
+    height: 78px;
+    width: 100%;
+    text-align: center;
+    padding-top: 24px;
+    box-sizing: border-box;
+    border-bottom: 1px solid $kGrayscale4;
+    .kTitle {
+      color: #333333;
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+  .kContainer {
+    height: 482px;
+  }
+  .kFooter {
+    height: 66px;
+    border-top: 1px solid $kGrayscale4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      height: 34px;
+      width: 120px;
+      font-size: 14px;
+    }
+  }
+
+  /deep/ .kRow {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 20px 28px;
+    font-size: 15px;
+    .kLabel {
+      width: 155px;
+      flex: 0 0 auto;
+    }
+
+    .kRequired {
+      width: 20px;
+      font-size: 24px;
+      color: $kGrayscale3;
+      &.kHasError {
+        color: $kDandger;
+        font-weight: bold;
+      }
+    }
+    .kRequired, .kLabel {
+      padding: 8px 4px;
+      height: 18px;
+    }
+    .kControl {
+      color: $kGrayscale2;
+      height: 34px;
+      width: 360px;
+      border-radius: 3px;
+      &.kHasError {
+        border: 1px solid $kDandger;
+        background: initial;
+      }
+    }
+    .error {
+      padding-top: 8px;
+    }
+  }
+}
+
+/deep/ .ui-dropdown.ui-widget {
+  width: 360px !important;
+
+  .ui-dropdown-items-wrapper {
+    max-height: 115px !important;
+  }
+}

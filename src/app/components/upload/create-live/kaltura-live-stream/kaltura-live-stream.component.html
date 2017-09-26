@@ -1,17 +1,23 @@
-<form [formGroup]="_form" novalidate (ngSubmit)="onSubmit()" class="kAccountUpgradeWrapper kContent">
-  kaltura live stream
+<form [formGroup]="_form" novalidate class="kAccountUpgradeWrapper kContent">
   <section class="kFormContainer">
     <div class="kFormSection">
-      <div class="kTitle">{{'applications.settings.accountUpgrade.sendUsMessage' | translate}}</div>
       <div class="kRow">
         <span class="kLabel">{{'applications.settings.accountUpgrade.name' | translate}}</span>
-        <div class="kRequired"></div>
-        <input class="kControl" formControlName="name" pInputText>
+        <div class="kRequired" [ngClass]="{'kHasError':!_form.controls['name'].valid &&
+                   _form.controls['name'].touched}">*
+        </div>
+        <div>
+          <input class="kControl" formControlName="name" pInputText
+                 [ngClass]="{'kHasError':!_form.controls['name'].valid &&
+                   _form.controls['name'].touched}">
+          <div *ngIf="_form.controls['name'].touched">
+            <div *ngIf="_form.controls['name'].hasError('required')"
+                 class="error">
+              {{'app.upload.prepareLive.kalturaStreamType.errors.required' | translate}}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="kSaveBtnContainer kRow">
-      <button pButton class="kButtonBranded kSaveBtn"
-              label="{{'applications.settings.accountUpgrade.send' | translate}}"></button>
     </div>
   </section>
 </form>
