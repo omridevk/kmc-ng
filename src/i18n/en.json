@@ -46,7 +46,9 @@
       "confirm": "Confirm",
       "close": "Close",
       "note": "Note:",
-      "attention": "Attention"
+      "attention": "Attention",
+      "yes": "Yes",
+      "no": "No"
     },
     "login": {
       "login": {

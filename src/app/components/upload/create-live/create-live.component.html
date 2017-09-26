@@ -16,13 +16,15 @@
                           [(data)]="kalturaLiveStreamData"></kKalturaLiveStream>
       <kManualLive #manualLiveComponent *ngSwitchCase="_streamTypes.manual" [(data)]="manualLiveData"></kManualLive>
       <kUniversalLive #universalLiveComponent *ngSwitchCase="_streamTypes.universal"></kUniversalLive>
-      {{kalturaLiveStreamData | json}}
-      {{manualLiveData | json}}
+
     </div>
   </div>
   <div class="kFooter">
     <button type="button" class="kButtonBranded" (click)="checkValidityOfCurrentSelectedForm()" pButton
             label="{{'app.upload.prepareLive.create' | translate}}"></button>
+    {{kalturaLiveStreamData | json}}
+    {{manualLiveData | json}}
+    {{universalLiveData | json}}
   </div>
 </div>
 <!--</k-area-blocker>-->

@@ -30,42 +30,58 @@
     }
   }
 
-  /deep/ .kRow {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    padding: 20px 28px;
-    font-size: 15px;
-    .kLabel {
-      width: 155px;
-      flex: 0 0 auto;
-    }
+  /deep/ .kContainer {
 
-    .kRequired {
-      width: 20px;
-      font-size: 24px;
-      color: $kGrayscale3;
-      &.kHasError {
-        color: $kDandger;
-        font-weight: bold;
+    padding-left: 28px;
+
+    .kRow {
+
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      padding-top: 20px;
+
+      .kRequired {
+        width: 20px;
+        font-size: 24px;
+        color: $kGrayscale2;
+        &.kHasError {
+          color: $kDandger;
+          font-weight: bold;
+        }
       }
-    }
-    .kRequired, .kLabel {
-      padding: 8px 4px;
-      height: 18px;
-    }
-    .kControl {
-      color: $kGrayscale2;
-      height: 34px;
-      width: 360px;
-      border-radius: 3px;
-      &.kHasError {
-        border: 1px solid $kDandger;
-        background: initial;
+      .kRequired, .kLabel {
+        padding: 8px 0px 8px 4px;
+        height: 18px;
       }
-    }
-    .error {
-      padding-top: 8px;
+
+      .kLabel {
+        width: 173px;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        height: 18px;
+        color: $kGrayscale1;
+        font-size: 15px;
+        line-height: 18px;
+      }
+
+      .kControl {
+        color: $kGrayscale2;
+        height: 34px;
+        width: 360px;
+        border-radius: 3px;
+        &.kHasError {
+          border: 1px solid $kDandger;
+          background: initial;
+        }
+        &.kInputSwitch {
+          padding-right: 12px;
+        }
+      }
+      .error {
+        padding-top: 8px;
+      }
     }
   }
 }

@@ -1,29 +1,54 @@
 @import 'app-theme/_variables.scss';
 
-.kFormContainer {
+/deep/ {
+  .ui-inputswitch {
+    height: 24px;
+    width: 42px !important;
+    overflow: visible;
+    vertical-align: middle;
+    background-color: $kGrayscale4;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
+    border: none;
 
-  .kFormSection {
+    // * animation
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+    // animation *
 
-    .kRow {
+    .ui-inputswitch-handle {
+      top: 4px;
+      left: 4px !important;
+      background-color: #ffffff;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      width: 16px !important;
+      height: 16px !important;
+      border: none;
 
-      //display: -webkit-box;
-      //display: -ms-flexbox;
-      //display: flex;
-      //padding-top: 20px;
+      // * animation
+      -moz-transition: left 0.3s;
+      -o-transition: left 0.3s;
+      -webkit-transition: left 0.3s;
+      transition: left 0.3s;
+      // animation *
+    }
 
-      .kLabel {
-        //width: 179px;
-        //-webkit-box-flex: 0;
-        //-ms-flex: 0 0 auto;
-        //flex: 0 0 auto;
-        //height: 18px;
-        //color: $kGrayscale1;
-        //font-size: 15px;
-        //line-height: 18px;
+    .ui-inputswitch-on, .ui-inputswitch-off {
+      visibility: hidden;
+    }
+
+    &.ui-inputswitch-checked {
+      background-color: $kPrimary;
+      border: none;
+
+      .ui-inputswitch-handle {
+        left: 23px !important;
       }
-
-
-
     }
   }
 }

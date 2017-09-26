@@ -16,7 +16,15 @@ enum StreamTypes {
 })
 export class CreateLiveComponent implements OnInit {
   public _selectedStreamType: StreamTypes = StreamTypes.kaltura;
-  public kalturaLiveStreamData: KalturaLiveStream;
+  public kalturaLiveStreamData: KalturaLiveStream = {
+    name: '',
+    description: '',
+    transcodingProfile: 'asd1',
+    liveDVR: false,
+    enableRecording: false,
+    enableRecordingSelectedOption: 'asd1',
+    previewMode: false
+  };
   public manualLiveData: ManualLive;
   public universalLiveData: UniversalLive;
   public _availableStreamTypes: Array<{ value: StreamTypes, label: string }>;
