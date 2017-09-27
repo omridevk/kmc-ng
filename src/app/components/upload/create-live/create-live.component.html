@@ -1,10 +1,11 @@
-<!--<k-area-blocker [showLoader]="_isBusy" [message]="_blockerMessage">-->
 <div class="kEditWin kOverrideFAIcons" #captionsEdit>
   <div class="kHeader">
     <span class="kTitle">{{'app.upload.prepareLive.createLiveStreamTitle' | translate}}</span>
   </div>
+  <k-area-blocker [showLoader]="_blockerState.isBusy" [message]="_blockerState.message">
 
   <div class="kContainer">
+
     <div class="kRow">
       <span class="kLabel">{{'app.upload.prepareLive.streamTypeLabel' | translate}}</span>
       <div class="kRequired"></div>
@@ -13,21 +14,21 @@
 
     <div [ngSwitch]="_selectedStreamType">
       <kKalturaLiveStream #kalturaLiveStreamComponent *ngSwitchCase="_streamTypes.kaltura"
-                          [(data)]="kalturaLiveStreamData"></kKalturaLiveStream>
+                          [(data)]="kalturaLiveStreamData" [(blockerState)]="_blockerState"></kKalturaLiveStream>
       <kManualLive #manualLiveComponent *ngSwitchCase="_streamTypes.manual" [(data)]="manualLiveData"></kManualLive>
       <kUniversalLive #universalLiveComponent *ngSwitchCase="_streamTypes.universal"></kUniversalLive>
 
     </div>
   </div>
+  </k-area-blocker>
+
   <div class="kFooter">
-    <button type="button" class="kButtonBranded" (click)="checkValidityOfCurrentSelectedForm()" pButton
+    <button type="button" class="kButtonBranded" (click)="submitCurrentSelectedForm()" pButton
             label="{{'app.upload.prepareLive.create' | translate}}"></button>
-    {{kalturaLiveStreamData | json}}
-    {{manualLiveData | json}}
-    {{universalLiveData | json}}
+    <!--{{manualLiveData | json}}-->
+    <!--{{universalLiveData | json}}-->
   </div>
 </div>
-<!--</k-area-blocker>-->
 
 <!--<select [(ngModel)]="_selectedStreamType">-->
 <!--<option *ngFor="let type of _availableStreamTypes" [ngValue]="type.id">{{type.name | translate}}</option>-->

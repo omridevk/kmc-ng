@@ -152,12 +152,13 @@
         "kalturaStreamType":{
           "name": "Name",
           "description": "Description",
-          "transcodingProfile": "Transcoding Profile",
+          "transcodingProfile": "Live Transcoding Profiles",
           "liveDVR": "Live DVR",
           "liveDVR_message": "Seeking to early parts of the live stream. DVR window is 2 hours by default",
           "enableRecording": "Enable Recording",
           "enableRecordingOptions": {
-            "createNewEntriesForEveryBroadcastSession": "Create new entries for every broadcast session"
+            "perSession": "Create new entries for every broadcast session",
+            "appended": "Append recorded content to a single entry"
           },
           "previewMode": "Preview Mode",
           "errors":{
