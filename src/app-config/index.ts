@@ -1,4 +1,5 @@
 export const environment = {
+    "appVersion" : "1.2.3",
     "shell": {
         "languageHash": "12", /* this value is set manually at the moment and should be replaced with the published app version  */
         "defaultRoute": "/content/entries",

@@ -42,7 +42,7 @@ Update nginx configuration file:
 For example, for the player-studio kmc-app the configuration should resemble the following:
 ```bash
     location /player-studio/ {
-        alias /Users/eransakal/dev/github/kaltura/player-studio/player-studio/app/;
+        alias /users/eransakal/dev/github/kaltura/player-studio/player-studio/app/;
     }
 ```
 

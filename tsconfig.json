@@ -2,10 +2,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -16,8 +15,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2016",
-      "ES2017",
+      "es2017",
       "dom"
     ],
     "paths": {
@@ -218,6 +216,9 @@
       ]
     }
   },
+  "exclude": [
+    "node_modules"
+  ],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "debug": true

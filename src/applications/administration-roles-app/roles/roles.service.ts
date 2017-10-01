@@ -180,7 +180,7 @@ export class RolesService implements OnDestroy {
     }))
       .do(() => this.reload(true))
       .map(() => {
-        return;
+        return undefined;
       })
       .catch(error => {
         if (error.code === 'ROLE_IS_BEING_USED') {

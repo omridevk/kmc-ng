@@ -4,9 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AppLocalization, AppStorage } from '@kaltura-ng/kaltura-common';
 import { AppAuthentication } from './app-authentication.service';
-import { environment } from 'app-config';
+import { environment } from 'app-environment';
 
-export const BootstrapAdapterToken = new InjectionToken('bootstrapAdapter');
+export function CreateBootstrapAdapterToken() : InjectionToken<string>
+{
+    return new InjectionToken('bootstrapAdapter');
+}
+
+export const BootstrapAdapterToken = CreateBootstrapAdapterToken();
 
 export enum BootstrapAdapterType
 {
@@ -14,8 +19,8 @@ export enum BootstrapAdapterType
     postAuth
 }
 export interface BootstrapAdapter{
-    type: BootstrapAdapterType,
-    execute() : void
+    type: BootstrapAdapterType;
+    execute() : void;
 }
 
 export interface AppBootstrapConfig

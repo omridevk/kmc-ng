@@ -17,7 +17,7 @@ import { PlaylistSections } from './playlist-sections';
 import { KalturaMultiRequest } from 'kaltura-typescript-client';
 import { PlaylistExecuteAction } from 'kaltura-typescript-client/types/PlaylistExecuteAction';
 import { KalturaBaseEntry } from 'kaltura-typescript-client/types/KalturaBaseEntry';
-import { PlaylistsStore } from 'applications/content-playlists-app/playlists/playlists-store/playlists-store.service';
+import { PlaylistsStore } from '../playlists/playlists-store/playlists-store.service';
 import { KalturaPlaylistType } from 'kaltura-typescript-client/types/KalturaPlaylistType';
 import { PlaylistAddAction } from 'kaltura-typescript-client/types/PlaylistAddAction';
 
