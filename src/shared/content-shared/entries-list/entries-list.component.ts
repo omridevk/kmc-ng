@@ -1,13 +1,11 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { AppLocalization } from '@kaltura-ng/kaltura-common';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
+import { AreaBlockerMessage, StickyComponent } from '@kaltura-ng/kaltura-ui';
 
 import { EntriesStore, SortDirection } from 'app-shared/content-shared/entries-store/entries-store.service';
-
-import { EntriesTableComponent } from 'app-shared/content-shared/entries-table/entries-table.component';
+import { FreetextFilter } from 'app-shared/content-shared/entries-store/filters/freetext-filter';
+import { EntriesTableColumns } from 'app-shared/content-shared/entries-table/entries-table.component';
+import { BrowserService } from 'app-shared/kmc-shell';
 import { EntriesFilters, EntriesFiltersService } from 'app-shared/content-shared/entries-store/entries-filters.service';
 
 
@@ -52,14 +50,17 @@ function getDelta<T>(source : T[], compareTo : T[], keyPropertyName : string, co
   styleUrls: ['./entries-list.component.scss']
 })
 export class EntriesListComponent implements OnInit, OnDestroy {
-  @Input() selectedEntries: Array<any> = [];
-  @ViewChild(EntriesTableComponent) private dataTable: EntriesTableComponent;
+  @Input() isBusy = false;
+  @Input() blockerMessage: AreaBlockerMessage = null;
+  @Input() selectedEntries: any[] = [];
+  @Input() columns: EntriesTableColumns | null;
+  @Input() rowActions: { label: string, commandName: string }[];
 
-  public isBusy = false;
-  public _blockerMessage: AreaBlockerMessage = null;
+  @ViewChild('tags') private tags: StickyComponent;
+
+  @Output() onActionsSelected = new EventEmitter<{ action: string, entryId: string }>();
   public _filterTags : { type : string, value : string, label : string, tooltip : {token : string, args?: any[]}}[] = [];
   private _handledFiltersInTags : EntriesFilters = null;
-
 
     private querySubscription: ISubscription;
 
@@ -152,7 +153,7 @@ export class EntriesListComponent implements OnInit, OnDestroy {
 
         this._filter.pageSize = query.data.pageSize;
         this._filter.pageIndex = query.data.pageIndex - 1;
-        this.dataTable.scrollToTop();
+        this._browserService.scrollToTop();
       }
     );
 
@@ -272,6 +273,10 @@ export class EntriesListComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+    onTagsChange(event){
+        this.tags.updateLayout();
+    }
 
   clearSelection() {
     this.selectedEntries = [];
